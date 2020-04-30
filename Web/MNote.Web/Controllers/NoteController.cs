@@ -2,13 +2,18 @@
 {
     using System.Diagnostics;
 
-    using MNote.Web.ViewModels;
-
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
+    [Authorize]
     public class NoteController : BaseController
     {
         public IActionResult Create()
+        {
+            return this.View();
+        }
+
+        public IActionResult Edit(int noteId)
         {
             return this.View();
         }

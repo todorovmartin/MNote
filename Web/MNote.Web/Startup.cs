@@ -21,6 +21,8 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+    using MNote.Web.Services.Interfaces;
+    using MNote.Web.Services;
 
     public class Startup
     {
@@ -64,6 +66,8 @@
             // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();
             services.AddTransient<ISettingsService, SettingsService>();
+            services.AddScoped<INotesService, NotesService>();
+            //services.AddScoped<INotebooksService, NotebooksService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
