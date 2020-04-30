@@ -11,20 +11,25 @@
 
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
+    using MNote.Data.Models.Enums;
 
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
+    public class MNoteDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
     {
         private static readonly MethodInfo SetIsDeletedQueryFilterMethod =
-            typeof(ApplicationDbContext).GetMethod(
+            typeof(MNoteDbContext).GetMethod(
                 nameof(SetIsDeletedQueryFilter),
                 BindingFlags.NonPublic | BindingFlags.Static);
 
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        public MNoteDbContext(DbContextOptions<MNoteDbContext> options)
             : base(options)
         {
         }
 
         public DbSet<Setting> Settings { get; set; }
+
+        public DbSet<Note> Notes { get; set; }
+
+        public DbSet<Notebook> NoteBooks { get; set; }
 
         public override int SaveChanges() => this.SaveChanges(true);
 

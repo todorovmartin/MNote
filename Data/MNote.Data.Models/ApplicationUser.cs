@@ -33,5 +33,10 @@ namespace MNote.Data.Models
         public virtual ICollection<IdentityUserClaim<string>> Claims { get; set; }
 
         public virtual ICollection<IdentityUserLogin<string>> Logins { get; set; }
+
+        // Added by me
+        public ICollection<Note> Notes { get; set; }
+
+        public ICollection<Notebook> Notebooks { get; set; }
     }
 }
