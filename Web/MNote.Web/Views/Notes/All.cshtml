@@ -1,0 +1,53 @@
+﻿@using X.PagedList.Mvc.Core;
+@using X.PagedList.Mvc.Common;
+@using X.PagedList;
+@using MNote.Web.ViewModels;
+
+@model IPagedList<MNote.Web.ViewModels.Notes.AllNotesViewModel>
+@{
+    this.ViewData["Title"] = "All notes";
+}
+
+all
+
+<div class="row">
+    <div class="card-columns">
+        @foreach (var note in Model)
+        {
+            if (note.NoteColor != "light")
+            {
+                <div class="card text-white bg-@note.NoteColor">
+                    <div class="card-body">
+                        <h5 class="card-title">@note.Title</h5>
+                        <p class="card-text">@note.Content</p>
+                        <p class="card-text"><small class="text-muted">@note.DateCreated</small></p>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="card bg-@note.NoteColor">
+                    <div class="card-body">
+                        <h5 class="card-title">@note.Title</h5>
+                        <p class="card-text">@note.Content</p>
+                        <p class="card-text"><small class="text-muted">@note.DateCreated</small></p>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>
+
+<div class="mt-3 d-flex justify-content-around">
+    @Html.PagedListPager((IPagedList)Model, page => Url.Action("All",
+                                            new
+                                                 {
+                                                PageNumber = page
+                                            }),
+                                            new PagedListRenderOptions
+                                            {
+                                                MaximumPageNumbersToDisplay = 5,
+                                                LiElementClasses = new string[] { "page-item" },
+                                                PageClasses = new string[] { "page-link" }
+                                            })
+</div>

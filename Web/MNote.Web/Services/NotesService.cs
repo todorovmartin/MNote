@@ -40,7 +40,7 @@ namespace MNote.Web.Services
                 return;
             }
 
-            this.db.Add(note);
+            this.db.Notes.Add(note);
             this.db.SaveChanges();
         }
 
@@ -110,6 +110,11 @@ namespace MNote.Web.Services
             var note = this.GetNoteById(id);
 
             note.IsPinned = false;
+        }
+
+        void INotesService.EditNote(Note note)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -1,0 +1,42 @@
+﻿@using MNote.Data.Models.Enums
+
+@model MNote.Web.ViewModels.Notes.CreateNoteViewModel
+
+@{
+    ViewData["Title"] = "Create Note";
+}
+
+<link href="~/css/createAndEditProducts.css" rel="stylesheet" />
+<h3 class="mobile-fondsize-20 text-muted text-center">@ViewData["Title"]</h3>
+<hr class="w-50" />
+<div class="container" id="myForm">
+    <form asp-controller="Notes" asp-action="Create" method="post" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <label asp-for="Content" class="control-label"></label>
+                <textarea asp-for="Content" class="form-control"></textarea>
+                <span asp-validation-for="Content" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <label asp-for="NoteColor" class="control-label"></label>
+                <select class="form-control" asp-for="NoteColor" asp-items="Html.GetEnumSelectList<NoteColor>()">
+                    <option selected="selected" disabled="" value="">Default</option>
+                </select>
+                <span asp-validation-for="NoteColor" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group text-center">
+            <button type="submit" value="" class="btn btn-primary">Create Note</button>
+        </div>
+    </form>
+</div>

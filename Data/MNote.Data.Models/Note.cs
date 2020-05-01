@@ -26,7 +26,7 @@
 
         public ApplicationUser User { get; set; }
 
-        public int NotebookId { get; set; }
+        public int? NotebookId { get; set; }
 
         public Notebook Notebook { get; set; }
     }
