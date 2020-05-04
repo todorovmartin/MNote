@@ -10,7 +10,7 @@
 
         bool NoteExists(int id);
 
-        void CreateNote(Note note);
+        void CreateNote(Note note, string username);
 
         void DeleteNote(int id);
 

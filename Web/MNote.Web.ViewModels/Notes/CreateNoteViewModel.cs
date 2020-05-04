@@ -1,5 +1,6 @@
 ﻿namespace MNote.Web.ViewModels.Notes
 {
+    using MNote.Data.Models;
     using System;
     using System.ComponentModel.DataAnnotations;
 
@@ -17,6 +18,10 @@
 
         [Display(Name = "Color")]
         public string NoteColor { get; set; }
+
+        public string UserId { get; set; }
+
+        public ApplicationUser User { get; set; }
 
         //[Display(Name = "Notebook")]
         //[Required(ErrorMessage = "\"{0}\" is required.")]

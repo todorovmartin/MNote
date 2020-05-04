@@ -57,7 +57,7 @@
         {
             var note = this.mapper.Map<Note>(model);
 
-            this.notesService.CreateNote(note);
+            this.notesService.CreateNote(note, this.User.Identity.Name);
 
             return this.RedirectToAction(nameof(this.All));
         }

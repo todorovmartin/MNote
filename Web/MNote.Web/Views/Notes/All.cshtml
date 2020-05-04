@@ -8,8 +8,6 @@
     this.ViewData["Title"] = "All notes";
 }
 
-all
-
 <div class="row">
     <div class="card-columns">
         @foreach (var note in Model)
@@ -20,7 +18,7 @@ all
                     <div class="card-body">
                         <h5 class="card-title">@note.Title</h5>
                         <p class="card-text">@note.Content</p>
-                        <p class="card-text"><small class="text-muted">@note.DateCreated</small></p>
+                        <p class="card-text"><small class="text-white">@note.DateCreated</small></p>
                     </div>
                 </div>
             }
@@ -30,7 +28,16 @@ all
                     <div class="card-body">
                         <h5 class="card-title">@note.Title</h5>
                         <p class="card-text">@note.Content</p>
-                        <p class="card-text"><small class="text-muted">@note.DateCreated</small></p>
+                        <div class="row">
+                            <div class="col-6">
+                                <p class="card-text"><small class="text-muted">@note.DateCreated</small></p>
+                            </div>
+                            <div class="col-6 text-right">
+                                <a href="" class="text-muted"><i class="fas fa-thumbtack"></i></a>
+                                <a href="" class="text-muted"><i class="fas fa-archive"></i></a>
+                                <a href="" class="text-muted"><i class="fas fa-circle"></i></a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             }

@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualBasic.CompilerServices;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.VisualBasic.CompilerServices;
 using MNote.Data;
 using MNote.Data.Models;
 using MNote.Web.Services.Interfaces;
@@ -13,10 +14,12 @@ namespace MNote.Web.Services
     public class NotesService : INotesService
     {
         private readonly MNoteDbContext db;
+        private readonly IUsersService usersService;
 
-        public NotesService(MNoteDbContext db)
+        public NotesService(MNoteDbContext db, IUsersService usersService)
         {
             this.db = db;
+            this.usersService = usersService;
         }
 
         public void ArchiveNote(int id)
@@ -33,13 +36,14 @@ namespace MNote.Web.Services
             note.IsActive = true;
         }
 
-        public void CreateNote(Note note)
+        public void CreateNote(Note note, string username)
         {
             if (note == null)
             {
                 return;
             }
 
+            note.User = this.usersService.GetUserByUsername(username);
             this.db.Notes.Add(note);
             this.db.SaveChanges();
         }

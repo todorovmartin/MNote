@@ -68,6 +68,7 @@
             // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();
             services.AddTransient<ISettingsService, SettingsService>();
+            services.AddScoped<IUsersService, UsersService>();
             services.AddScoped<INotesService, NotesService>();
             //services.AddScoped<INotebooksService, NotebooksService>();
 

@@ -20,7 +20,7 @@
 
         public NoteColor NoteColor { get; set; }
 
-        public DateTime DateCreated { get; set; } = DateTime.UtcNow;
+        public DateTime DateCreated { get; set; } = DateTime.UtcNow.AddHours(2);
 
         public string UserId { get; set; }
 
