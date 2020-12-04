@@ -27,6 +27,9 @@ namespace MNote.Web.Services
             var note = this.GetNoteById(id);
 
             note.IsActive = false;
+
+            this.db.Update(note);
+            this.db.SaveChanges();
         }
 
         public void UnarchiveNote(int id)
@@ -34,6 +37,9 @@ namespace MNote.Web.Services
             var note = this.GetNoteById(id);
 
             note.IsActive = true;
+
+            this.db.Update(note);
+            this.db.SaveChanges();
         }
 
         public void CreateNote(Note note, string username)
@@ -80,9 +86,11 @@ namespace MNote.Web.Services
             return true;
         }
 
-        public IEnumerable<Note> GetAllNotes()
+        public IEnumerable<Note> GetAllNotes(string username)
         {
-            return this.db.Notes.ToList();
+            var notes = this.db.Notes.Where(x => x.User.UserName == username).ToList();
+
+            return notes;
         }
 
         public Note GetNoteById(int id)
@@ -107,6 +115,9 @@ namespace MNote.Web.Services
             var note = this.GetNoteById(id);
 
             note.IsPinned = true;
+
+            this.db.Update(note);
+            this.db.SaveChanges();
         }
 
         public void UnpinNote(int id)
@@ -114,6 +125,9 @@ namespace MNote.Web.Services
             var note = this.GetNoteById(id);
 
             note.IsPinned = false;
+
+            this.db.Update(note);
+            this.db.SaveChanges();
         }
 
         void INotesService.EditNote(Note note)

@@ -28,7 +28,7 @@
 
         public IActionResult All(int? pageNumber, int? pageSize)
         {
-            var products = this.notesService.GetAllNotes().OrderByDescending(x => x.Id).ToList();
+            var products = this.notesService.GetAllNotes(this.User.Identity.Name).OrderByDescending(x => x.Id).ToList();
 
             pageNumber = pageNumber ?? DefaultPageNumber;
             pageSize = pageSize ?? DefaultPageSize;
@@ -64,7 +64,61 @@
 
         public IActionResult Edit(int noteId)
         {
-            return this.View();
+            var note = this.notesService.GetNoteById(noteId);
+
+            if (note == null)
+            {
+                return this.NotFound();
+            }
+
+            var model = this.mapper.Map<EditNoteViewModel>(note);
+
+            return this.View(model);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(EditNoteViewModel model)
+        {
+            var note = this.mapper.Map<Note>(model);
+
+            this.notesService.EditNote(note);
+
+            return this.RedirectToAction(nameof(this.All));
+        }
+
+        public IActionResult Delete(int id)
+        {
+            this.notesService.DeleteNote(id);
+
+            return this.RedirectToAction(nameof(this.All));
+        }
+
+        public IActionResult ArchiveUnarchive(int id)
+        {
+            if (this.notesService.GetNoteById(id).IsActive == true)
+            {
+                this.notesService.ArchiveNote(id);
+            }
+            else
+            {
+                this.notesService.UnarchiveNote(id);
+            }
+
+            return this.RedirectToAction(nameof(this.All));
+        }
+
+        public IActionResult PinUnpin(int id)
+        {
+            if (this.notesService.GetNoteById(id).IsPinned == true)
+            {
+                this.notesService.UnpinNote(id);
+            }
+            else
+            {
+                this.notesService.PinNote(id);
+            }
+
+            return this.RedirectToAction(nameof(this.All));
         }
     }
 }

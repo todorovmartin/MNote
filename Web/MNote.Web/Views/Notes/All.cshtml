@@ -33,9 +33,10 @@
                                 <p class="card-text"><small class="text-muted">@note.DateCreated</small></p>
                             </div>
                             <div class="col-6 text-right">
-                                <a href="" class="text-muted"><i class="fas fa-thumbtack"></i></a>
-                                <a href="" class="text-muted"><i class="fas fa-archive"></i></a>
+                                <a asp-controller="Notes" asp-action="PinUnpin" asp-route-id="@note.Id" class="text-muted"><i class="fas fa-thumbtack"></i></a>
+                                <a asp-controller="Notes" asp-action="ArchiveUnarchive" asp-route-id="@note.Id"  class="text-muted"><i class="fas fa-archive"></i></a>
                                 <a href="" class="text-muted"><i class="fas fa-circle"></i></a>
+                                <a href="" class="text-muted"><i class="fas fa-plus"></i></a>
                             </div>
                         </div>
                     </div>

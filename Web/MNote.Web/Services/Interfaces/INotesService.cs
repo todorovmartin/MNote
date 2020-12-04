@@ -26,7 +26,7 @@
 
         IEnumerable<Note> GetNotesBySearch(string searchString);
 
-        IEnumerable<Note> GetAllNotes();
+        IEnumerable<Note> GetAllNotes(string username);
 
         IEnumerable<Note> GetNotesByNotebook(int notebookId);
     }
