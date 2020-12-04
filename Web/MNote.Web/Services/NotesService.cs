@@ -2,6 +2,7 @@
 using Microsoft.VisualBasic.CompilerServices;
 using MNote.Data;
 using MNote.Data.Models;
+using MNote.Data.Models.Enums;
 using MNote.Web.Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -133,6 +134,20 @@ namespace MNote.Web.Services
         void INotesService.EditNote(Note note)
         {
             throw new NotImplementedException();
+        }
+
+        public void AddNoteToNotebook(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ChangeNoteColor(int id, NoteColor color)
+        {
+            var note = this.GetNoteById(id);
+            note.NoteColor = color;
+
+            this.db.Update(note);
+            this.db.SaveChanges();
         }
     }
 }

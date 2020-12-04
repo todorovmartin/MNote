@@ -70,7 +70,7 @@
             services.AddTransient<ISettingsService, SettingsService>();
             services.AddScoped<IUsersService, UsersService>();
             services.AddScoped<INotesService, NotesService>();
-            //services.AddScoped<INotebooksService, NotebooksService>();
+            services.AddScoped<INotebooksService, NotebooksService>();
 
             // Auto Mapper Configurations
             var mappingConfig = new MapperConfiguration(mc =>

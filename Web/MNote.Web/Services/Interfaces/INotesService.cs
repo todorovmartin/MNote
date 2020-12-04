@@ -3,6 +3,7 @@
     using System.Collections.Generic;
 
     using MNote.Data.Models;
+    using MNote.Data.Models.Enums;
 
     public interface INotesService
     {
@@ -23,6 +24,10 @@
         void ArchiveNote(int id);
 
         void UnarchiveNote(int id);
+
+        void AddNoteToNotebook(int id);
+
+        void ChangeNoteColor(int id, NoteColor color);
 
         IEnumerable<Note> GetNotesBySearch(string searchString);
 

@@ -7,6 +7,8 @@ namespace MNote.Data.Models
     {
         public int Id { get; set; }
 
+        public string Title { get; set; }
+
         public DateTime DateCreated { get; set; } = DateTime.UtcNow;
 
         public bool IsDeleted { get; set; } = false;
