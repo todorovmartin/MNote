@@ -43,7 +43,9 @@ namespace MNote.Web.Services
 
         public IEnumerable<Notebook> GetAllNotebooks(string username)
         {
-            throw new NotImplementedException();
+            var notebooks = this.db.NoteBooks.Where(x => x.User.UserName == username).ToList();
+
+            return notebooks;
         }
 
         public Notebook GetNotebookById(int id)

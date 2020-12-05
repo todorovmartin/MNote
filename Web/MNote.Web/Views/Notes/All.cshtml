@@ -34,15 +34,47 @@
                             </div>
                             <div class="col-6 text-right">
                                 <a asp-controller="Notes" asp-action="PinUnpin" asp-route-id="@note.Id" class="text-muted"><i class="fas fa-thumbtack"></i></a>
-                                <a asp-controller="Notes" asp-action="ArchiveUnarchive" asp-route-id="@note.Id"  class="text-muted"><i class="fas fa-archive"></i></a>
-                                <a href="" class="text-muted"><i class="fas fa-circle"></i></a>
-                                <a href="" class="text-muted"><i class="fas fa-plus"></i></a>
+                                <a asp-controller="Notes" asp-action="ArchiveUnarchive" asp-route-id="@note.Id" class="text-muted"><i class="fas fa-archive"></i></a>
+                                <a href="" class="text-muted" data-toggle="modal" data-target="#exampleModal" data-whatever="@note.Title" data-desc="@note.Content"><i class="fas fa-circle"></i></a>
+                                <a asp-controller="" asp-action="" asp-route-id="@note.Id" class="text-muted"><i class="fas fa-plus"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                @*<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@note.Title" data-desc="@note.Content">Open modal for @note.Title</button>*@
+
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="form-group">
+                                        <label for="recipient-name" class="col-form-label">Title:</label>
+                                        <input type="text" class="form-control" id="recipient-name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="message-text" class="col-form-label">Description:</label>
+                                        <textarea class="form-control" id="message-text"></textarea>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save Changes</button>
                             </div>
                         </div>
                     </div>
                 </div>
             }
         }
+
     </div>
 </div>
 
@@ -59,3 +91,19 @@
                                                 PageClasses = new string[] { "page-link" }
                                             })
 </div>
+
+@section scripts{
+    <script>
+        $('#exampleModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal
+            var title = button.data('whatever') // Extract info from data-* attributes
+            var desc = button.data('desc')
+            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+            var modal = $(this)
+            modal.find('.modal-title').text('Edit ' + title)
+            modal.find('.modal-body input').val(title)
+            modal.find('.modal-body textarea').val(desc)
+        })
+    </script>
+}

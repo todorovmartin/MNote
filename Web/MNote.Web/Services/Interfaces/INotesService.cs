@@ -25,7 +25,7 @@
 
         void UnarchiveNote(int id);
 
-        void AddNoteToNotebook(int id);
+        void AddNoteToNotebook(int noteId, int notebookId);
 
         void ChangeNoteColor(int id, NoteColor color);
 

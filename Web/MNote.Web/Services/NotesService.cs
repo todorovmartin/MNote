@@ -16,11 +16,13 @@ namespace MNote.Web.Services
     {
         private readonly MNoteDbContext db;
         private readonly IUsersService usersService;
+        private readonly INotebooksService notebooksService;
 
-        public NotesService(MNoteDbContext db, IUsersService usersService)
+        public NotesService(MNoteDbContext db, IUsersService usersService, INotebooksService notebooksService)
         {
             this.db = db;
             this.usersService = usersService;
+            this.notebooksService = notebooksService;
         }
 
         public void ArchiveNote(int id)
@@ -136,9 +138,13 @@ namespace MNote.Web.Services
             throw new NotImplementedException();
         }
 
-        public void AddNoteToNotebook(int id)
+        public void AddNoteToNotebook(int noteId, int notebookId)
         {
-            throw new NotImplementedException();
+            var note = this.GetNoteById(noteId);
+            var notebook = this.notebooksService.GetNotebookById(notebookId);
+
+            notebook.Notes.Add(note);
+            this.db.SaveChanges();
         }
 
         public void ChangeNoteColor(int id, NoteColor color)

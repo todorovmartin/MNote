@@ -2,6 +2,7 @@
 {
     using MNote.Data.Models;
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
     public class CreateNotebookViewModel
@@ -17,8 +18,6 @@
 
         public ApplicationUser User { get; set; }
 
-        //[Display(Name = "Notebook")]
-        //[Required(ErrorMessage = "\"{0}\" is required.")]
-        //public string Notebook { get; set; }
+        public ICollection<Note> Notes { get; set; }
     }
 }

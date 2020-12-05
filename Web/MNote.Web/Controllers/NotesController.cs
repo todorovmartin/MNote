@@ -120,5 +120,13 @@
 
             return this.RedirectToAction(nameof(this.All));
         }
+
+        public IActionResult AddToNotebook(int id)
+        {
+            this.notesService.GetNoteById(id);
+
+
+            return this.RedirectToAction(nameof(this.All));
+        }
     }
 }

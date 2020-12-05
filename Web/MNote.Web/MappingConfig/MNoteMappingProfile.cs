@@ -14,6 +14,7 @@ namespace MNote.Web.MappingConfig
         public MNoteMappingProfile()
         {
             this.CreateMap<CreateNoteViewModel, Note>();
+            this.CreateMap<EditNoteViewModel, Note>();
             this.CreateMap<CreateNotebookViewModel, Notebook>();
         }
     }

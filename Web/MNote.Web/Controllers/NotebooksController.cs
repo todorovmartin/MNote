@@ -14,7 +14,7 @@
     [Authorize]
     public class NotebooksController : BaseController
     {
-        private const int DefaultPageSize = 8;
+        private const int DefaultPageSize = 15;
         private const int DefaultPageNumber = 1;
 
         private readonly INotebooksService notebooksService;
@@ -35,11 +35,12 @@
 
             var pageProductsViewModel = products.ToPagedList(pageNumber.Value, pageSize.Value);
 
-            var model = pageProductsViewModel.Select(x => new AllNotesViewModel
+            var model = pageProductsViewModel.Select(x => new AllNotebooksViewModel
             {
                 Id = x.Id,
                 Title = x.Title,
                 DateCreated = x.DateCreated,
+                Notes = x.Notes,
             });
 
             return this.View(model);
