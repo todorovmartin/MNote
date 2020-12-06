@@ -5,18 +5,14 @@ using System.Text;
 
 namespace MNote.Web.ViewModels.Notes
 {
-    public class AllNotesViewModel
+    public class DetailNotebookViewModel
     {
         public int Id { get; set; }
 
         public string Title { get; set; }
 
-        public string Content { get; set; }
-
         public DateTime DateCreated { get; set; }
 
-        public string NoteColor { get; set; }
-
-        public ICollection<Notebook> Notebooks { get; set; }
+        public ICollection<Note> Notes { get; set; }
     }
 }

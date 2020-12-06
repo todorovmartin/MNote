@@ -18,11 +18,13 @@
         private const int DefaultPageNumber = 1;
 
         private readonly INotesService notesService;
+        private readonly INotebooksService notebooksService;
         private readonly IMapper mapper;
 
-        public NotesController(INotesService notesService, IMapper mapper)
+        public NotesController(INotesService notesService, IMapper mapper, INotebooksService notebooksService)
         {
             this.notesService = notesService;
+            this.notebooksService = notebooksService;
             this.mapper = mapper;
         }
 
@@ -35,7 +37,18 @@
 
             var pageProductsViewModel = products.ToPagedList(pageNumber.Value, pageSize.Value);
 
-            var model = pageProductsViewModel.Select(x => new AllNotesViewModel
+            var allNotebooks = this.notebooksService.GetAllNotebooks(this.User.Identity.Name).ToList();
+            this.ViewBag.allNotebooks = allNotebooks;
+
+            //var notebooksModel = allNotebooks.Select(x => new AllNotebooksViewModel
+            //{
+            //    Id = x.Id,
+            //    DateCreated = x.DateCreated,
+            //    Notes = x.Notes,
+            //    Title = x.Title,
+            //});
+
+            var notesModel = pageProductsViewModel.Select(x => new AllNotesViewModel
             {
                 Id = x.Id,
                 Title = x.Title,
@@ -44,7 +57,7 @@
                 NoteColor = x.NoteColor.ToString(),
             });
 
-            return this.View(model);
+            return this.View(notesModel);
         }
 
         public IActionResult Create()
@@ -121,10 +134,9 @@
             return this.RedirectToAction(nameof(this.All));
         }
 
-        public IActionResult AddToNotebook(int id)
+        public IActionResult AddToNotebook(int noteId, int notebookId)
         {
-            this.notesService.GetNoteById(id);
-
+            this.notesService.AddNoteToNotebook(noteId, notebookId);
 
             return this.RedirectToAction(nameof(this.All));
         }

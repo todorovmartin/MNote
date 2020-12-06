@@ -50,7 +50,9 @@ namespace MNote.Web.Services
 
         public Notebook GetNotebookById(int id)
         {
-            throw new NotImplementedException();
+            var notebook = this.db.NoteBooks.FirstOrDefault(x => x.Id == id);
+
+            return notebook;
         }
 
         public bool RemoveNote(int id, string username)

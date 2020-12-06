@@ -18,12 +18,14 @@
         private const int DefaultPageNumber = 1;
 
         private readonly INotebooksService notebooksService;
+        private readonly INotesService notesService;
         private readonly IMapper mapper;
 
-        public NotebooksController(INotebooksService notebooksService, IMapper mapper)
+        public NotebooksController(INotebooksService notebooksService, IMapper mapper, INotesService notesService)
         {
             this.notebooksService = notebooksService;
             this.mapper = mapper;
+            this.notesService = notesService;
         }
 
         public IActionResult All(int? pageNumber, int? pageSize)
@@ -61,5 +63,24 @@
             return this.RedirectToAction(nameof(this.All));
         }
 
+        public IActionResult Details(int? pageNumber, int? pageSize, int notebookId)
+        {
+            var products = this.notesService.GetNotesByNotebook(notebookId).OrderByDescending(x => x.Id).ToList();
+
+            pageNumber = pageNumber ?? DefaultPageNumber;
+            pageSize = pageSize ?? DefaultPageSize;
+
+            var pageProductsViewModel = products.ToPagedList(pageNumber.Value, pageSize.Value);
+
+            var model = pageProductsViewModel.Select(x => new DetailNotebookViewModel
+            {
+                Id = x.Id,
+                Title = x.Title,
+                DateCreated = x.DateCreated,
+                Notes = x.Notebook.Notes,
+            });
+
+            return this.View(model);
+        }
     }
 }

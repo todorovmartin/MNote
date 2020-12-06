@@ -105,7 +105,9 @@ namespace MNote.Web.Services
 
         public IEnumerable<Note> GetNotesByNotebook(int notebookId)
         {
-            throw new NotImplementedException();
+            var notes = this.db.Notes.Where(x => x.NotebookId == notebookId).ToList();
+
+            return notes;
         }
 
         public IEnumerable<Note> GetNotesBySearch(string searchString)

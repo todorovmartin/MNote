@@ -3,28 +3,29 @@
 @using X.PagedList;
 @using MNote.Web.ViewModels;
 
-@model IPagedList<MNote.Web.ViewModels.Notes.AllNotebooksViewModel>
+@model IPagedList<MNote.Web.ViewModels.Notes.DetailNotebookViewModel>
 @{
-    this.ViewData["Title"] = "All notes";
+    this.ViewData["Title"] = "Details";
 }
 
 <div class="row">
     <div class="card-columns">
         @foreach (var notebook in Model)
         {
-            @*<div class="card w-75">
-                <div class="card-body">
-                    <h5 class="card-title">@notebook.Title</h5>
-                    <p class="card-text">@notebook.DateCreated</p>
-                    <a href="#" class="btn btn-primary">Button</a>
-                </div>
-            </div>*@
-
-            <a asp-controller="Notebooks" asp-action="Details" asp-route-id="@notebook.Id">@notebook.Title</a>
+            <h3>@notebook.Title</h3>
             <p>@notebook.DateCreated</p>
-            if (notebook.Notes.Count() != 0)
+            if (notebook.Notes != null)
             {
-                <p>@notebook.Notes.Count() notes</p>
+                @foreach (var note in notebook.Notes)
+                {
+                    <div class="card text-white bg-@note.NoteColor">
+                        <div class="card-body">
+                            <h5 class="card-title">@note.Title</h5>
+                            <p class="card-text">@note.Content</p>
+                            <p class="card-text"><small class="text-white">@note.DateCreated</small></p>
+                        </div>
+                    </div>
+                }
             }
             else
             {
