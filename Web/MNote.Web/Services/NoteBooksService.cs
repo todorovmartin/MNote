@@ -1,4 +1,5 @@
-﻿using MNote.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using MNote.Data;
 using MNote.Data.Models;
 using MNote.Web.Services.Interfaces;
 using System;
@@ -32,6 +33,7 @@ namespace MNote.Web.Services
             }
 
             notebook.User = this.usersService.GetUserByUsername(username);
+            notebook.Notes = new List<Note>();
             this.db.NoteBooks.Add(notebook);
             this.db.SaveChanges();
         }
@@ -43,14 +45,15 @@ namespace MNote.Web.Services
 
         public IEnumerable<Notebook> GetAllNotebooks(string username)
         {
-            var notebooks = this.db.NoteBooks.Where(x => x.User.UserName == username).ToList();
+            //var notebooks = this.db.NoteBooks.Where(x => x.User.UserName == username).ToList();
+            var notebooks = this.db.NoteBooks.Include(x => x.Notes).Where(x => x.User.UserName == username).ToList();
 
             return notebooks;
         }
 
         public Notebook GetNotebookById(int id)
         {
-            var notebook = this.db.NoteBooks.FirstOrDefault(x => x.Id == id);
+            var notebook = this.db.NoteBooks.Include(x => x.Notes).FirstOrDefault(x => x.Id == id);
 
             return notebook;
         }

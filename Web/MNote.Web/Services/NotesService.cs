@@ -145,7 +145,13 @@ namespace MNote.Web.Services
             var note = this.GetNoteById(noteId);
             var notebook = this.notebooksService.GetNotebookById(notebookId);
 
-            notebook.Notes.Add(note);
+            if (notebook.Notes == null)
+            {
+                notebook.Notes = new List<Note>();
+            }
+
+            notebook.Notes.Add(note); // error
+            this.db.Update(notebook);
             this.db.SaveChanges();
         }
 

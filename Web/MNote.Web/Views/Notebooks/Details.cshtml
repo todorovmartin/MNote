@@ -3,49 +3,46 @@
 @using X.PagedList;
 @using MNote.Web.ViewModels;
 
-@model IPagedList<MNote.Web.ViewModels.Notes.DetailNotebookViewModel>
+@*@model IPagedList<MNote.Web.ViewModels.Notes.DetailNotebookViewModel>*@
+@model MNote.Web.ViewModels.Notes.DetailNotebookViewModel
 @{
     this.ViewData["Title"] = "Details";
 }
 
 <div class="row">
     <div class="card-columns">
-        @foreach (var notebook in Model)
+        <h3>@Model.Title</h3>
+        <p>@Model.DateCreated</p>
+        @if (Model.Notes != null)
         {
-            <h3>@notebook.Title</h3>
-            <p>@notebook.DateCreated</p>
-            if (notebook.Notes != null)
+            @foreach (var note in Model.Notes)
             {
-                @foreach (var note in notebook.Notes)
-                {
-                    <div class="card text-white bg-@note.NoteColor">
-                        <div class="card-body">
-                            <h5 class="card-title">@note.Title</h5>
-                            <p class="card-text">@note.Content</p>
-                            <p class="card-text"><small class="text-white">@note.DateCreated</small></p>
-                        </div>
+                <div class="card text-white bg-@note.NoteColor">
+                    <div class="card-body">
+                        <h5 class="card-title">@note.Title</h5>
+                        <p class="card-text">@note.Content</p>
+                        <p class="card-text"><small class="text-white">@note.DateCreated</small></p>
                     </div>
-                }
+                </div>
             }
-            else
-            {
-                <p>0 notes</p>
-            }
-
+        }
+        else
+        {
+            <p>0 notes</p>
         }
     </div>
 </div>
 
-<div class="mt-3 d-flex justify-content-around">
-    @Html.PagedListPager((IPagedList)Model, page => Url.Action("All",
-                                            new
-                                                 {
-                                                PageNumber = page
-                                            }),
-                                            new PagedListRenderOptions
-                                            {
-                                                MaximumPageNumbersToDisplay = 5,
-                                                LiElementClasses = new string[] { "page-item" },
-                                                PageClasses = new string[] { "page-link" }
-                                            })
-</div>
+@*<div class="mt-3 d-flex justify-content-around">
+        @Html.PagedListPager((IPagedList)Model, page => Url.Action("All",
+                                                new
+                                                     {
+                                                    PageNumber = page
+                                                }),
+                                                new PagedListRenderOptions
+                                                {
+                                                    MaximumPageNumbersToDisplay = 5,
+                                                    LiElementClasses = new string[] { "page-item" },
+                                                    PageClasses = new string[] { "page-link" }
+                                                })
+    </div>*@

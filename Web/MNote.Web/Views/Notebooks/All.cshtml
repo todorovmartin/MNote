@@ -13,16 +13,16 @@
         @foreach (var notebook in Model)
         {
             @*<div class="card w-75">
-                <div class="card-body">
-                    <h5 class="card-title">@notebook.Title</h5>
-                    <p class="card-text">@notebook.DateCreated</p>
-                    <a href="#" class="btn btn-primary">Button</a>
-                </div>
-            </div>*@
+                    <div class="card-body">
+                        <h5 class="card-title">@notebook.Title</h5>
+                        <p class="card-text">@notebook.DateCreated</p>
+                        <a href="#" class="btn btn-primary">Button</a>
+                    </div>
+                </div>*@
 
-            <a asp-controller="Notebooks" asp-action="Details" asp-route-id="@notebook.Id">@notebook.Title</a>
+            <a asp-controller="Notebooks" asp-action="Details" asp-route-notebookId="@notebook.Id">@notebook.Title</a>
             <p>@notebook.DateCreated</p>
-            if (notebook.Notes.Count() != 0)
+            if (notebook.Notes != null)
             {
                 <p>@notebook.Notes.Count() notes</p>
             }
@@ -30,7 +30,6 @@
             {
                 <p>0 notes</p>
             }
-
         }
     </div>
 </div>

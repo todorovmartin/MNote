@@ -16,6 +16,8 @@ namespace MNote.Web.MappingConfig
             this.CreateMap<CreateNoteViewModel, Note>();
             this.CreateMap<EditNoteViewModel, Note>();
             this.CreateMap<CreateNotebookViewModel, Notebook>();
+            this.CreateMap<DetailNotebookViewModel, Notebook>();
+            this.CreateMap<Notebook, DetailNotebookViewModel>();
         }
     }
 }

@@ -30,19 +30,19 @@
 
         public IActionResult All(int? pageNumber, int? pageSize)
         {
-            var products = this.notebooksService.GetAllNotebooks(this.User.Identity.Name).OrderByDescending(x => x.Id).ToList();
+            var notebooks = this.notebooksService.GetAllNotebooks(this.User.Identity.Name).OrderByDescending(x => x.Id).ToList();
 
             pageNumber = pageNumber ?? DefaultPageNumber;
             pageSize = pageSize ?? DefaultPageSize;
 
-            var pageProductsViewModel = products.ToPagedList(pageNumber.Value, pageSize.Value);
+            var pageProductsViewModel = notebooks.ToPagedList(pageNumber.Value, pageSize.Value);
 
             var model = pageProductsViewModel.Select(x => new AllNotebooksViewModel
             {
                 Id = x.Id,
                 Title = x.Title,
                 DateCreated = x.DateCreated,
-                Notes = x.Notes,
+                Notes = x.Notes.ToList(),
             });
 
             return this.View(model);
@@ -65,20 +65,22 @@
 
         public IActionResult Details(int? pageNumber, int? pageSize, int notebookId)
         {
-            var products = this.notesService.GetNotesByNotebook(notebookId).OrderByDescending(x => x.Id).ToList();
+            var notebook = this.notebooksService.GetNotebookById(notebookId);
 
-            pageNumber = pageNumber ?? DefaultPageNumber;
-            pageSize = pageSize ?? DefaultPageSize;
+            //pageNumber = pageNumber ?? DefaultPageNumber;
+            //pageSize = pageSize ?? DefaultPageSize;
 
-            var pageProductsViewModel = products.ToPagedList(pageNumber.Value, pageSize.Value);
+            //var pageProductsViewModel = notebook.ToPagedList(pageNumber.Value, pageSize.Value);
 
-            var model = pageProductsViewModel.Select(x => new DetailNotebookViewModel
-            {
-                Id = x.Id,
-                Title = x.Title,
-                DateCreated = x.DateCreated,
-                Notes = x.Notebook.Notes,
-            });
+            //var model = pageProductsViewModel.Select(x => new DetailNotebookViewModel
+            //{
+            //    Id = x.Id,
+            //    Title = x.Title,
+            //    DateCreated = x.DateCreated,
+            //    Notes = x.Notebook.Notes,
+            //});
+
+            var model = this.mapper.Map<DetailNotebookViewModel>(notebook);
 
             return this.View(model);
         }

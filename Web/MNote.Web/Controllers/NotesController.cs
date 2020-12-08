@@ -30,23 +30,15 @@
 
         public IActionResult All(int? pageNumber, int? pageSize)
         {
-            var products = this.notesService.GetAllNotes(this.User.Identity.Name).OrderByDescending(x => x.Id).ToList();
+            var notes = this.notesService.GetAllNotes(this.User.Identity.Name).OrderByDescending(x => x.Id).ToList();
 
             pageNumber = pageNumber ?? DefaultPageNumber;
             pageSize = pageSize ?? DefaultPageSize;
 
-            var pageProductsViewModel = products.ToPagedList(pageNumber.Value, pageSize.Value);
+            var pageProductsViewModel = notes.ToPagedList(pageNumber.Value, pageSize.Value);
 
             var allNotebooks = this.notebooksService.GetAllNotebooks(this.User.Identity.Name).ToList();
             this.ViewBag.allNotebooks = allNotebooks;
-
-            //var notebooksModel = allNotebooks.Select(x => new AllNotebooksViewModel
-            //{
-            //    Id = x.Id,
-            //    DateCreated = x.DateCreated,
-            //    Notes = x.Notes,
-            //    Title = x.Title,
-            //});
 
             var notesModel = pageProductsViewModel.Select(x => new AllNotesViewModel
             {
